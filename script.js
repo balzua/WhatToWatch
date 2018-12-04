@@ -1,5 +1,6 @@
 const mdb_api_key = 'c3a54b08f36afeb83e13c3643c7c2acd';
 const poster_path_base = 'http://image.tmdb.org/t/p/w185/';
+const max_cast_display = 5;
 
 //A function which adds the movie details to the main information area.
 function writeMovieDetails(details) {
@@ -11,9 +12,13 @@ function writeMovieDetails(details) {
 }
 
 //A function which adds the movie cast details to the main information area.
-function writeCastDetails(responseJson) {
-    console.log('***CAST DETAILS ***');
-    console.log(responseJson);
+function writeCastDetails(credits) {
+    const cast = credits.cast;
+    $('.main').append('<ul>')
+    for (let i = 0; i < max_cast_display; i++) {
+        $('.main ul').append(`<li>${cast[i].name} as ${cast[i].character}</li>`);
+    }
+    $('.main').append('</ul>')
 }
 
 
