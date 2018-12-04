@@ -57,9 +57,7 @@ function makeActive(activeMovie) {
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
 function renderResults(resultJson) {
     $('.results').html('');
-    console.log(resultJson);
     let results = resultJson.results;
-    console.log(results);
     for (let i = 0; i < results.length; i++) {
         let listEntry = `<div class="result ${i % 2 == 0 ? '' : 'odd'}">`;
         listEntry += `<span class="result-title">${results[i].title}</span><br>`;
@@ -67,7 +65,8 @@ function renderResults(resultJson) {
         listEntry += `<span class="hidden movie-id">${results[i].id}</span>`;
         listEntry += '</div>';
         $('.results').append(listEntry);
-    } 
+    }
+    makeActive(results[0].id); 
 }
 
 //A function which accepts a user-provided search term and searches the The Movie Database for people, TV shows, and movies related to that term.
