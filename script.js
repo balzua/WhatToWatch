@@ -3,6 +3,12 @@ const yt_api_key = 'AIzaSyB_4uvbCh9aPAl1-dOQ5klTEQ7FnvxZfjo';
 const poster_path_base = 'http://image.tmdb.org/t/p/w185/';
 const max_cast_display = 5;
 
+function displayYoutubeVideo(video) {
+    $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
+    width="540" height="390" src="http://www.youtube.com/embed/${video.items[0].id.videoId}"
+    frameborder="0" allowFullScreen></iframe>`);
+}
+
 //A function which returns responseJSON containing the top Youtube video for a movie.
 function getYoutube(activeMovie) {
     const baseURL = 'https://www.googleapis.com/youtube/v3/search';
@@ -19,7 +25,7 @@ function getYoutube(activeMovie) {
     const requestURL = baseURL + '?' + query;
     fetch(requestURL)
         .then(response => response.json())
-        .then(responseJson => console.log(responseJson));
+        .then(responseJson => displayYoutubeVideo(responseJson));
 }
 
 
@@ -70,10 +76,10 @@ function getMovieCredits(activeMovie) {
 }
 
 //A small helper function which calls the necessary functions to make a movie in the results the 'active' movie in view.
-function makeActive(activeMovie) {
-    getMovieDetails(activeMovie);
-    getMovieCredits(activeMovie);
-    getYoutube(activeMovie);
+function makeActive(activeMovieID, activeMovieTitle) {
+    getMovieDetails(activeMovieID);
+    getMovieCredits(activeMovieID);
+    getYoutube(activeMovieTitle);
 }
 
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
@@ -88,7 +94,7 @@ function renderResults(resultJson) {
         listEntry += '</div>';
         $('.results').append(listEntry);
     }
-    makeActive(results[0].id); 
+    makeActive(results[0].id, results[0].title); 
 }
 
 //A function which accepts a user-provided search term and searches the The Movie Database for people, TV shows, and movies related to that term.
@@ -116,8 +122,9 @@ function eventListener() {
 
     //Handles clicking on a result for details -- not yet implemented
     $('.results').on('click', '.result', function (event) {
-        let activeTitle = $(this).children('.movie-id').text();
-        makeActive(activeTitle);
+        let activeMovieID = $(this).children('.movie-id').text();
+        let activeMovieTitle = $(this).children('.result-title').text();
+        makeActive(activeMovieID, activeMovieTitle);
     })
 }
 
