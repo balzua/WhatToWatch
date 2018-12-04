@@ -1,17 +1,100 @@
 const mdb_api_key = 'c3a54b08f36afeb83e13c3643c7c2acd';
+const yt_api_key = 'AIzaSyB_4uvbCh9aPAl1-dOQ5klTEQ7FnvxZfjo';
+const poster_path_base = 'http://image.tmdb.org/t/p/w185/';
+const max_cast_display = 5;
 
+function displayYoutubeVideo(video) {
+    $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
+    width="540" height="390" src="http://www.youtube.com/embed/${video.items[0].id.videoId}"
+    frameborder="0" allowFullScreen></iframe>`);
+}
+
+//A function which returns responseJSON containing the top Youtube video for a movie.
+function getYoutube(activeMovie) {
+    const baseURL = 'https://www.googleapis.com/youtube/v3/search';
+    let queryParams = {
+        q: activeMovie,
+        type: 'video',
+        part: 'snippet',
+        maxResults: 1,
+        videoEmbeddable: true,
+        key: yt_api_key
+    }
+    let queryArray = Object.keys(queryParams).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(queryParams[key])}`);
+    const query = queryArray.join('&');
+    const requestURL = baseURL + '?' + query;
+    fetch(requestURL)
+        .then(response => response.json())
+        .then(responseJson => displayYoutubeVideo(responseJson));
+}
+
+
+//A function which adds the movie details to the main information area.
+function writeMovieDetails(details) {
+    let content = `<h2>${details.title}</h2>`;
+    content += `<p>${details.release_date}</p>`;
+    content += `<p>${details.overview}</p>`;
+    content += `<img src="${poster_path_base + details.poster_path}">`;
+    $('.main').html(content);
+}
+
+//A function which adds the movie cast details to the main information area.
+function writeCastDetails(credits) {
+    const cast = credits.cast;
+    $('.main').append('<ul>')
+    for (let i = 0; i < max_cast_display; i++) {
+        $('.main ul').append(`<li>${cast[i].name} as ${cast[i].character}</li>`);
+    }
+    $('.main').append('</ul>')
+}
+
+
+//A function which returns responseJSON containing a given movie's details from The Movie Database.
+function getMovieDetails(activeMovie) {
+    const baseURL = 'https://api.themoviedb.org/3/movie/'
+    let requestURL = baseURL + activeMovie + '?' + 'api_key=' + mdb_api_key;
+    fetch(requestURL)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+        })
+        .then(responseJson => writeMovieDetails(responseJson));
+}
+
+//A funciton which returns responseJSON containing a given movie's cast/crew from The Movie Database.
+function getMovieCredits(activeMovie) {
+    const baseURL = 'https://api.themoviedb.org/3/movie/'
+    let requestURL = baseURL + activeMovie + '/credits' + '?' + 'api_key=' + mdb_api_key;
+    fetch(requestURL)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+        })
+        .then(responseJson => writeCastDetails(responseJson));
+}
+
+//A small helper function which calls the necessary functions to make a movie in the results the 'active' movie in view.
+function makeActive(activeMovieID, activeMovieTitle) {
+    getMovieDetails(activeMovieID);
+    getMovieCredits(activeMovieID);
+    getYoutube(activeMovieTitle);
+}
+
+//A function which adds the search results to the DOM when provided response JSON from The Movie Database.
 function renderResults(resultJson) {
     $('.results').html('');
-    console.log(resultJson);
     let results = resultJson.results;
-    console.log(results);
     for (let i = 0; i < results.length; i++) {
         let listEntry = `<div class="result ${i % 2 == 0 ? '' : 'odd'}">`;
         listEntry += `<span class="result-title">${results[i].title}</span><br>`;
         listEntry += `<span class="result-date">${results[i].release_date}</span>`;
+        listEntry += `<span class="hidden movie-id">${results[i].id}</span>`;
         listEntry += '</div>';
         $('.results').append(listEntry);
-    } 
+    }
+    makeActive(results[0].id, results[0].title); 
 }
 
 //A function which accepts a user-provided search term and searches the The Movie Database for people, TV shows, and movies related to that term.
@@ -38,8 +121,10 @@ function eventListener() {
     });
 
     //Handles clicking on a result for details -- not yet implemented
-    $('#results').on('click', '.result', function (event) {
-        console.log($(this).html());
+    $('.results').on('click', '.result', function (event) {
+        let activeMovieID = $(this).children('.movie-id').text();
+        let activeMovieTitle = $(this).children('.result-title').text();
+        makeActive(activeMovieID, activeMovieTitle);
     })
 }
 
