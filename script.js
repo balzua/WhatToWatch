@@ -6,8 +6,15 @@ function renderResults(resultJson) {
     let results = resultJson.results;
     console.log(results);
     for (let i = 0; i < results.length; i++) {
-        $('#results').append(`<span class="result-title">${results[i].title}</span><br>`)
-        $('#results').append(`<span class="result-date">${results[i].release_date}</span><br><br>`)
+        let listEntry = `<div class="result ${i % 2 == 0 ? '' : 'odd'}">`;
+        listEntry += `<span class="result-title">${results[i].title}</span><br>`;
+        listEntry += `<span class="result-date">${results[i].release_date}</span>`;
+        listEntry += '</div>';
+        $('#results').append(listEntry);
+        /* $('#results').append(`<div class="result ${i % 2 == 0 ? 'even-row' : 'odd-row'}">`);
+        $('#results').append(`<span class="result-title">${results[i].title}</span><br>`);
+        $('#results').append(`<span class="result-date">${results[i].release_date}</span>`);
+        $('#results').append('</div>'); */
     } 
 }
 

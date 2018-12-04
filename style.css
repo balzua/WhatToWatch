@@ -1,0 +1,8 @@
+.result {
+    margin: 5px;
+    width: 500px;
+}
+
+.odd {
+    background-color: lightgray;
+}
