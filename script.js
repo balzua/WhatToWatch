@@ -11,10 +11,6 @@ function renderResults(resultJson) {
         listEntry += `<span class="result-date">${results[i].release_date}</span>`;
         listEntry += '</div>';
         $('#results').append(listEntry);
-        /* $('#results').append(`<div class="result ${i % 2 == 0 ? 'even-row' : 'odd-row'}">`);
-        $('#results').append(`<span class="result-title">${results[i].title}</span><br>`);
-        $('#results').append(`<span class="result-date">${results[i].release_date}</span>`);
-        $('#results').append('</div>'); */
     } 
 }
 
@@ -33,12 +29,18 @@ function search(searchTerm) {
         .then(responseJson => renderResults(responseJson));
 }
 
-function submitListener() {
+function eventListener() {
+    //Handles search submission
     $('#js-search').on('submit', function (event) {
         event.preventDefault();
         let query = $('#js-search-term').val();
         let resultsList = search(query);
     });
+
+    //Handles clicking on a result for details -- not yet implemented
+    $('#results').on('click', '.result', function (event) {
+        console.log($(this).html());
+    })
 }
 
-$(submitListener);
+$(eventListener);
