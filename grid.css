@@ -6,16 +6,17 @@
     'main'
     'right'
     'footer';
-    background-color: #2196F3;
     padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 @media only screen and (min-width: 640px) {
     #container {
         grid-template-areas: 
         'header header header'
-        'results results results'
-        'main main right'
+        'results main main'
+        'results right right'
         'footer footer footer';
     }
 }
@@ -29,7 +30,7 @@
     }
 }
 
-#container div {
+#container > div {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;

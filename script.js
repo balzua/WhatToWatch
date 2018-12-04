@@ -1,7 +1,7 @@
 const mdb_api_key = 'c3a54b08f36afeb83e13c3643c7c2acd';
 
 function renderResults(resultJson) {
-    $('#results').html('');
+    $('.results').html('');
     console.log(resultJson);
     let results = resultJson.results;
     console.log(results);
@@ -10,7 +10,7 @@ function renderResults(resultJson) {
         listEntry += `<span class="result-title">${results[i].title}</span><br>`;
         listEntry += `<span class="result-date">${results[i].release_date}</span>`;
         listEntry += '</div>';
-        $('#results').append(listEntry);
+        $('.results').append(listEntry);
     } 
 }
 
