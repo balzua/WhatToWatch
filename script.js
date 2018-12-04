@@ -1,6 +1,27 @@
 const mdb_api_key = 'c3a54b08f36afeb83e13c3643c7c2acd';
+const yt_api_key = 'AIzaSyB_4uvbCh9aPAl1-dOQ5klTEQ7FnvxZfjo';
 const poster_path_base = 'http://image.tmdb.org/t/p/w185/';
 const max_cast_display = 5;
+
+//A function which returns responseJSON containing the top Youtube video for a movie.
+function getYoutube(activeMovie) {
+    const baseURL = 'https://www.googleapis.com/youtube/v3/search';
+    let queryParams = {
+        q: activeMovie,
+        type: 'video',
+        part: 'snippet',
+        maxResults: 1,
+        videoEmbeddable: true,
+        key: yt_api_key
+    }
+    let queryArray = Object.keys(queryParams).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(queryParams[key])}`);
+    const query = queryArray.join('&');
+    const requestURL = baseURL + '?' + query;
+    fetch(requestURL)
+        .then(response => response.json())
+        .then(responseJson => console.log(responseJson));
+}
+
 
 //A function which adds the movie details to the main information area.
 function writeMovieDetails(details) {
@@ -52,6 +73,7 @@ function getMovieCredits(activeMovie) {
 function makeActive(activeMovie) {
     getMovieDetails(activeMovie);
     getMovieCredits(activeMovie);
+    getYoutube(activeMovie);
 }
 
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
