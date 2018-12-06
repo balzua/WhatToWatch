@@ -5,8 +5,8 @@ const max_cast_display = 5;
 
 function displayYoutubeVideo(video) {
     $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
-    width="540" height="390" src="http://www.youtube.com/embed/${video.items[0].id.videoId}"
-    frameborder="0" allowFullScreen></iframe>`);
+    src="http://www.youtube.com/embed/${video.items[0].id.videoId}"
+    width="420" height="315" frameborder="0" allowFullScreen></iframe>`);
 }
 
 //A function which returns responseJSON containing the top Youtube video for a movie.
