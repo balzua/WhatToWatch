@@ -2,8 +2,30 @@
     padding: 0px;
 }
 
+.results ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.results li {
+    padding: 8px 5px;
+    text-align: left;
+}
+
+.results a, .results a:visited {
+    text-decoration: none;
+    font-weight: bold;
+    color: navy;
+}
+
+.results li:hover, .results a:hover, .results a:focus {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .odd {
-    background-color: lightgray;
+    background-color: #f2f2f2;
 }
 
 body {
@@ -20,7 +42,7 @@ body {
 
 body * {
     font-family: 'Cabin', Sans-Serif;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 h1 {
@@ -58,11 +80,19 @@ h2 {
     text-align: left;
 }
 
-.release-date {
-    
+.release-date sup {
+    font-size: 12px;
 }
 
 ul {
     clear: both;
     display: inline-block;
+}
+
+.search-field, .search-button {
+    font-size: 20px;
+}
+
+.search-field {
+    width: 60%;
 }

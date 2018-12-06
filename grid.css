@@ -2,31 +2,31 @@
     display: grid;
     grid-template-areas: 
     'header'
-    'results'
     'main'
     'right'
+    'results'
     'footer';
     padding: 10px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-@media only screen and (min-width: 640px) {
+@media only screen and (min-width: 600px) {
     #container {
         grid-template-areas: 
-        'header header header header'
-        'results results main main'
-        'results results right right'
-        'footer footer footer footer';
+        'header header header'
+        'results main main'
+        'results right right'
+        'footer footer footer';
     }
 }
 
 @media only screen and (min-width: 960px) {
     #container {
         grid-template-areas: 
-        'header header header header header header header header'
-        'results results main main main right right right'
-        'footer footer footer footer footer footer footer footer';
+        'header header header header header header header'
+        'results main main main right right right'
+        'footer footer footer footer footer footer footer';
     }
 }
 

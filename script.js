@@ -3,6 +3,22 @@ const yt_api_key = 'AIzaSyB_4uvbCh9aPAl1-dOQ5klTEQ7FnvxZfjo';
 const poster_path_base = 'http://image.tmdb.org/t/p/w185/';
 const max_cast_display = 5;
 
+//Accepts a date in the form YYYY-MM-DD and converts to "Month Day, Year" string format
+function dateConversion(dateJson) {
+    const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const date = new Date(dateJson);
+    const day = date.getDate();
+    let dateSuffix = "";
+    if (day == '1' || day == '21' || day == '31') {
+        dateSuffix = "st";
+    } else if (day == '2' || day == '22') {
+        dateSuffix = "nd";
+    } else {
+        dateSuffix = "th";
+    }
+    return `${monthList[date.getMonth()]} ${date.getDate()}<sup>${dateSuffix}</sup>, ${date.getFullYear()}`;
+}
+
 function displayYoutubeVideo(video) {
     $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
     src="http://www.youtube.com/embed/${video.items[0].id.videoId}"
@@ -31,11 +47,12 @@ function getYoutube(activeMovie) {
 
 //A function which adds the movie details to the main information area.
 function writeMovieDetails(details) {
+    const releaseDate = dateConversion(details.release_date);
     let content = `<img src="${poster_path_base + details.poster_path}" class="poster">`;
     content += '<div class="movie-content">';
     content += `<h2>${details.title}</h2>`;
-    content += `<span class="release-date">${details.release_date}</span>`;
-    content += `<p class="overview">${details.overview}</p>`;
+    content += `<span class="release-date">${releaseDate}</span>`;
+    content += `<p>${details.overview}</p>`;
     content += '</div>';
     $('.main').html(content);
 }
@@ -86,15 +103,14 @@ function makeActive(activeMovieID, activeMovieTitle) {
 
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
 function renderResults(resultJson) {
-    $('.results').html('');
+    $('.results').html('<ul></ul>');
     let results = resultJson.results;
     for (let i = 0; i < results.length; i++) {
-        let listEntry = `<div class="result ${i % 2 == 0 ? '' : 'odd'}">`;
-        listEntry += `<span class="result-title">${results[i].title}</span><br>`;
-        listEntry += `<span class="result-date">${results[i].release_date}</span>`;
+        let listEntry = `<li ${i % 2 == 0 ? '' : 'class="odd"'}>`;
+        listEntry += `<a href="#">${results[i].title}</a>`;
         listEntry += `<span class="hidden movie-id">${results[i].id}</span>`;
-        listEntry += '</div>';
-        $('.results').append(listEntry);
+        listEntry += '</li>';
+        $('.results ul').append(listEntry);
     }
     makeActive(results[0].id, results[0].title); 
 }
