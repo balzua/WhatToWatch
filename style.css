@@ -97,3 +97,8 @@ ul {
 .search-field {
     width: 60%;
 }
+
+.main img {
+    width: 33%;
+    max-width: 185px;
+}
