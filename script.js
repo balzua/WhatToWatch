@@ -139,9 +139,9 @@ function eventListener() {
     });
 
     //Handles clicking on a result for details -- not yet implemented
-    $('.results').on('click', '.result', function (event) {
+    $('.results').on('click', 'li', function (event) {
         let activeMovieID = $(this).children('.movie-id').text();
-        let activeMovieTitle = $(this).children('.result-title').text();
+        let activeMovieTitle = $(this).children('a').text();
         makeActive(activeMovieID, activeMovieTitle);
     })
 }
