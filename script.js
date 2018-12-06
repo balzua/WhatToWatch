@@ -31,10 +31,12 @@ function getYoutube(activeMovie) {
 
 //A function which adds the movie details to the main information area.
 function writeMovieDetails(details) {
-    let content = `<h2>${details.title}</h2>`;
-    content += `<p>${details.release_date}</p>`;
-    content += `<p>${details.overview}</p>`;
-    content += `<img src="${poster_path_base + details.poster_path}">`;
+    let content = `<img src="${poster_path_base + details.poster_path}" class="poster">`;
+    content += '<div class="movie-content">';
+    content += `<h2>${details.title}</h2>`;
+    content += `<span class="release-date">${details.release_date}</span>`;
+    content += `<p class="overview">${details.overview}</p>`;
+    content += '</div>';
     $('.main').html(content);
 }
 
