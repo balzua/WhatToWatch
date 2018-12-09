@@ -79,6 +79,7 @@ h2 {
 
 .movie-content p {
     text-align: left;
+    margin-top: 5px;
 }
 
 .release-date sup {
@@ -101,4 +102,86 @@ ul {
 .main img {
     width: 33%;
     max-width: 185px;
+}
+
+.genre {
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 9pt;
+    font-weight: bold;
+    margin-right: 2px;
+    margin-top: 4px;
+}
+
+.science-fiction {
+    background-color: #0066ff;
+    color: white;
+}
+
+.action {
+    background-color: #990000;
+    color: white;
+}
+
+.romance {
+    background-color: #9900cc;
+    color: white;
+}
+
+.thriller {
+    background-color: #001a00;
+    color: white;
+}
+
+.crime {
+    background-color: #0d0d0d;
+    color: white;
+}
+
+.comedy {
+    background-color: yellowgreen;
+}
+
+.drama {
+    background-color: #000066;
+    color: white;
+}
+
+.adventure {
+    background-color: #996633;
+}
+
+.documentary {
+    background-color: orangered;
+    color: white;
+}
+
+.animation {
+    background-color: purple;
+    color: white;
+}
+
+.family {
+    background-color: green;
+    color: white;
+}
+
+.mystery {
+    background-color: #336699;
+    color: white;
+}
+
+.fantasy {
+    background-color: #99ff99;
+}
+
+.western {
+    background-color: #663300;
+    color: white;
+}
+
+.horror {
+    background-color: #333399;
+    color: white;
 }

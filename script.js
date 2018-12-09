@@ -51,7 +51,12 @@ function writeMovieDetails(details) {
     let content = `<img src="${poster_path_base + details.poster_path}" class="poster">`;
     content += '<div class="movie-content">';
     content += `<h2>${details.title}</h2>`;
-    content += `<span class="release-date">${releaseDate}</span>`;
+    content += `<span class="release-date">${releaseDate}</span><br>`;
+    const genres = details.genres;
+    for (let i = 0; i < genres.length; i++) {
+        genreName = details.genres[i].name.replace(/\s+/g, '-').toLowerCase();
+        content += `<div class="genre ${genreName}">${genreName}</div>`;
+    }
     content += `<p>${details.overview}</p>`;
     content += '</div>';
     $('.main').html(content);
@@ -60,13 +65,12 @@ function writeMovieDetails(details) {
 //A function which adds the movie cast details to the main information area.
 function writeCastDetails(credits) {
     const cast = credits.cast;
-    $('.main').append('<ul>')
+    $('.main').append('<ul class="cast">')
     for (let i = 0; i < max_cast_display; i++) {
-        $('.main ul').append(`<li>${cast[i].name} as ${cast[i].character}</li>`);
+        $('.main ul').append(`<li><a href="${cast[i].profile_path}">${cast[i].name}</a> as ${cast[i].character}</li>`);
     }
     $('.main').append('</ul>')
 }
-
 
 //A function which returns responseJSON containing a given movie's details from The Movie Database.
 function getMovieDetails(activeMovie) {
@@ -103,7 +107,7 @@ function makeActive(activeMovieID, activeMovieTitle) {
 
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
 function renderResults(resultJson) {
-    $('.results').html('<ul></ul>');
+    $('.results').html('<h2>Similar Titles</h2><ul></ul>');
     let results = resultJson.results;
     for (let i = 0; i < results.length; i++) {
         let listEntry = `<li ${i % 2 == 0 ? '' : 'class="odd"'}>`;
