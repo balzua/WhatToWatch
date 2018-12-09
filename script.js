@@ -23,6 +23,7 @@ function displayYoutubeVideo(video) {
     $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
     src="http://www.youtube.com/embed/${video.items[0].id.videoId}"
     width="420" height="315" frameborder="0" allowFullScreen></iframe>`);
+    $('.right').removeClass('hidden');
 }
 
 //A function which returns responseJSON containing the top Youtube video for a movie.
@@ -60,6 +61,7 @@ function writeMovieDetails(details) {
     content += `<p>${details.overview}</p>`;
     content += '</div>';
     $('.main').html(content);
+    $('.main').removeClass('hidden');
 }
 
 //A function which adds the movie cast details to the main information area.
@@ -106,7 +108,7 @@ function makeActive(activeMovieID, activeMovieTitle) {
 }
 
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
-function renderResults(resultJson) {
+function writeResults(resultJson) {
     $('.results').html('<h2>Similar Titles</h2><ul></ul>');
     let results = resultJson.results;
     for (let i = 0; i < results.length; i++) {
@@ -114,6 +116,7 @@ function renderResults(resultJson) {
         listEntry += `<a href="#">${results[i].title}</a>`;
         listEntry += '</li>';
         $('.results ul').append(listEntry);
+        $('.results').removeClass('hidden');
     }
     makeActive(results[0].id, results[0].title); 
 }
@@ -130,7 +133,7 @@ function search(searchTerm) {
                 return response.json();
             }
         })
-        .then(responseJson => renderResults(responseJson));
+        .then(responseJson => writeResults(responseJson));
 }
 
 function eventListener() {
