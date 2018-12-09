@@ -110,9 +110,8 @@ function renderResults(resultJson) {
     $('.results').html('<h2>Similar Titles</h2><ul></ul>');
     let results = resultJson.results;
     for (let i = 0; i < results.length; i++) {
-        let listEntry = `<li ${i % 2 == 0 ? '' : 'class="odd"'}>`;
+        let listEntry = `<li data="${results[i].id}" ${i % 2 == 0 ? '' : 'class="odd"'}>`;
         listEntry += `<a href="#">${results[i].title}</a>`;
-        listEntry += `<span class="hidden movie-id">${results[i].id}</span>`;
         listEntry += '</li>';
         $('.results ul').append(listEntry);
     }
@@ -142,9 +141,9 @@ function eventListener() {
         let resultsList = search(query);
     });
 
-    //Handles clicking on a result for details -- not yet implemented
+    //Handles clicking on a result for details
     $('.results').on('click', 'li', function (event) {
-        let activeMovieID = $(this).children('.movie-id').text();
+        let activeMovieID = $(this).attr('data');
         let activeMovieTitle = $(this).children('a').text();
         makeActive(activeMovieID, activeMovieTitle);
     })

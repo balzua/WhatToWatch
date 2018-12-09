@@ -104,6 +104,10 @@ ul {
     max-width: 185px;
 }
 
+.cast {
+    list-style-type: none;
+}
+
 .genre {
     display: inline-block;
     padding: 3px 6px;
