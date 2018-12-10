@@ -2,7 +2,7 @@ const mdb_api_key = 'c3a54b08f36afeb83e13c3643c7c2acd';
 const yt_api_key = 'AIzaSyB_4uvbCh9aPAl1-dOQ5klTEQ7FnvxZfjo';
 const poster_path_base = 'https://image.tmdb.org/t/p/w185/';
 const max_cast_display = 5;
-const errorBox = $('.header').children('.error');
+
 
 
 //Accepts an array of film credits and returns the most popular one. 
@@ -143,9 +143,11 @@ function writeResults(resultJson) {
         listEntry += '</li>';
         $('.results ul').append(listEntry);
     }
+    const errorBox = $('.header').children('.error');
     if (results.length == 0) {
         errorBox.text('No Results Found- Please Try Again!');
         errorBox.removeClass('hidden');
+        $('.main, .results, .right').addClass('hidden');
     } else {
         errorBox.addClass('hidden');
         $('.results').removeClass('hidden');
@@ -178,6 +180,7 @@ function eventListener() {
 
     //Handles clicking on a result for details
     $('.results').on('click', 'li', function (event) {
+        event.preventDefault();
         let activeMovieID = $(this).attr('data');
         let activeMovieTitle = $(this).children('a').text();
         makeActive(activeMovieID, activeMovieTitle);
@@ -185,6 +188,7 @@ function eventListener() {
 
     //Handles clicking on another movie in the "also appeared in" section for an actor
     $('.main').on('click', 'li > a', function (event) {
+        event.preventDefault();
         let activeMovieID = $(this).attr('data');
         let activeMovieTitle = $(this).text();
         makeActive(activeMovieID, activeMovieTitle);
