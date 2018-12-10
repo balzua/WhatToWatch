@@ -129,13 +129,13 @@ function getMovieDetails(activeMovie) {
 
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
 function writeSearchResults(resultJson) {
+    const results = resultJson.results;
     const errorBox = $('.header').children('.error');
     if (results.length == 0) { // No results found. Display error message.
         errorBox.text('No Results Found- Please Try Again!');
         errorBox.removeClass('hidden');
     } else { // Results found: display other results and make the top result the active movie.
         errorBox.addClass('hidden');
-        let results = resultJson.results;
         makeActive(results[0].id, results[0].title); 
         $('.results').html('<span class="results-header">Similar Titles</span><ul></ul>');
         for (let i = 0; i < results.length; i++) {
