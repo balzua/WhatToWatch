@@ -2,6 +2,13 @@ const mdb_api_key = 'c3a54b08f36afeb83e13c3643c7c2acd';
 const yt_api_key = 'AIzaSyB_4uvbCh9aPAl1-dOQ5klTEQ7FnvxZfjo';
 const poster_path_base = 'http://image.tmdb.org/t/p/w185/';
 const max_cast_display = 5;
+const errorBox = $('.header').children('.error');
+
+
+//Accepts an array of film credits and returns the most popular one. 
+function randomMovie(movies) {
+    return movies[Math.floor(Math.random() * (movies.length))];
+}
 
 //Accepts a date in the form YYYY-MM-DD and converts to "Month Day, Year" string format
 function dateConversion(dateJson) {
@@ -19,6 +26,7 @@ function dateConversion(dateJson) {
     return `${monthList[date.getMonth()]} ${date.getDate()}<sup>${dateSuffix}</sup>, ${date.getFullYear()}`;
 }
 
+//Accepts JSON related to a youtube video and displays it on the page.
 function displayYoutubeVideo(video) {
     $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
     src="http://www.youtube.com/embed/${video.items[0].id.videoId}"
@@ -65,19 +73,34 @@ function writeMovieDetails(details) {
 }
 
 //A function which adds the movie cast details to the main information area.
-function writeCastDetails(credits) {
+function writeCastDetails(credits, alsoIn) {
     const cast = credits.cast;
     $('.main').append('<ul class="cast">')
     for (let i = 0; i < max_cast_display; i++) {
-        $('.main ul').append(`<li><a href="${cast[i].profile_path}">${cast[i].name}</a> as ${cast[i].character}</li>`);
+        const otherFilm = randomMovie(alsoIn[i].cast);
+        $('.main ul').append(`<li><a href="${cast[i].profile_path}">${cast[i].name}</a> as ${cast[i].character}<br>Also appeared in: ${otherFilm.title}</li>`);
     }
     $('.main').append('</ul>')
+}
+
+function getCastDetails(credits) {
+    let castInfo = [];
+    for (let i = 0; i < max_cast_display; i++) {
+        const baseURL = `https://api.themoviedb.org/3/person/${credits.cast[i].id}/movie_credits`;
+        const requestURL = baseURL + '?api_key=' + mdb_api_key;
+        castInfo[i] = fetch(requestURL).then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+        })
+    }
+    Promise.all(castInfo).then(responseJson => writeCastDetails(credits, responseJson));
 }
 
 //A function which returns responseJSON containing a given movie's details from The Movie Database.
 function getMovieDetails(activeMovie) {
     const baseURL = 'https://api.themoviedb.org/3/movie/'
-    let requestURL = baseURL + activeMovie + '?' + 'api_key=' + mdb_api_key;
+    const requestURL = baseURL + activeMovie + '?' + 'api_key=' + mdb_api_key;
     fetch(requestURL)
         .then(response => {
             if (response.ok) {
@@ -91,13 +114,13 @@ function getMovieDetails(activeMovie) {
 function getMovieCredits(activeMovie) {
     const baseURL = 'https://api.themoviedb.org/3/movie/'
     let requestURL = baseURL + activeMovie + '/credits' + '?' + 'api_key=' + mdb_api_key;
-    fetch(requestURL)
+    const movieCast = fetch(requestURL)
         .then(response => {
             if (response.ok) {
                 return response.json();
             }
         })
-        .then(responseJson => writeCastDetails(responseJson));
+        .then(responseJson => getCastDetails(responseJson));
 }
 
 //A small helper function which calls the necessary functions to make a movie in the results the 'active' movie in view.
@@ -117,7 +140,6 @@ function writeResults(resultJson) {
         listEntry += '</li>';
         $('.results ul').append(listEntry);
     }
-    const errorBox = $('.header').children('.error');
     if (results.length == 0) {
         errorBox.text('No Results Found- Please Try Again!');
         errorBox.removeClass('hidden');

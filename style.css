@@ -93,9 +93,12 @@ h2 {
     font-size: 12px;
 }
 
-ul {
-    clear: both;
+.main ul {
     display: inline-block;
+}
+
+.main li {
+    margin: 6px;
 }
 
 .search-field, .search-button {
