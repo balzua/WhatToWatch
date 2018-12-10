@@ -29,7 +29,7 @@ function dateConversion(dateJson) {
 //Accepts JSON related to a youtube video and displays it on the page.
 function displayYoutubeVideo(video) {
     $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
-    src="//www.youtube.com/embed/${video.items[0].id.videoId}&origin=https://balzua.github.io/WhatToWatch/"
+    src="https://www.youtube.com/embed/${video.items[0].id.videoId}"
     width="420" height="315" frameborder="0" allowFullScreen></iframe>`);
     $('.right').removeClass('hidden');
 }
