@@ -12,6 +12,9 @@ function randomMovie(movies) {
 
 //Accepts a date in the form YYYY-MM-DD and converts to "Month Day, Year" string format
 function dateConversion(dateJson) {
+    if (!dateJson) {
+        return '';
+    }
     const monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const date = new Date(dateJson);
     const day = date.getDate();
