@@ -116,9 +116,16 @@ function writeResults(resultJson) {
         listEntry += `<a href="#">${results[i].title}</a>`;
         listEntry += '</li>';
         $('.results ul').append(listEntry);
-        $('.results').removeClass('hidden');
     }
-    makeActive(results[0].id, results[0].title); 
+    const errorBox = $('.header').children('.error');
+    if (results.length == 0) {
+        errorBox.text('No Results Found- Please Try Again!');
+        errorBox.removeClass('hidden');
+    } else {
+        errorBox.addClass('hidden');
+        $('.results').removeClass('hidden');
+        makeActive(results[0].id, results[0].title); 
+    }
 }
 
 //A function which accepts a user-provided search term and searches the The Movie Database for people, TV shows, and movies related to that term.

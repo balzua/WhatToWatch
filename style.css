@@ -199,3 +199,9 @@ ul {
 .footer img {
     vertical-align: middle;
 }
+
+.error {
+    color: darkred;
+    font-weight: bold;
+    margin-top: 10px;
+}
