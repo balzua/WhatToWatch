@@ -128,6 +128,18 @@ h2 {
     margin-top: 4px;
 }
 
+.footer img {
+    vertical-align: middle;
+}
+
+.error {
+    color: darkred;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/*Specific genre colors*/
+
 .science-fiction {
     background-color: #0066ff;
     color: white;
@@ -200,12 +212,3 @@ h2 {
     color: white;
 }
 
-.footer img {
-    vertical-align: middle;
-}
-
-.error {
-    color: darkred;
-    font-weight: bold;
-    margin-top: 10px;
-}
