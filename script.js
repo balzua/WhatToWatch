@@ -78,7 +78,7 @@ function writeCastDetails(credits, alsoIn) {
     $('.main').append('<ul class="cast">')
     for (let i = 0; i < max_cast_display; i++) {
         const otherFilm = randomMovie(alsoIn[i].cast);
-        $('.main ul').append(`<li><a href="${cast[i].profile_path}">${cast[i].name}</a> as ${cast[i].character}<br>Also appeared in: <a href="#" data="${otherFilm.id}">${otherFilm.title}</a></li>`);
+        $('.main ul').append(`<li><a href="https://www.themoviedb.org/person/${cast[i].id}" target="_blank">${cast[i].name}</a> as ${cast[i].character}<br>Also appeared in: <a href="#" data="${otherFilm.id}">${otherFilm.title}</a></li>`);
     }
     $('.main').append('</ul>')
 }
