@@ -1,6 +1,6 @@
 const mdb_api_key = 'c3a54b08f36afeb83e13c3643c7c2acd';
 const yt_api_key = 'AIzaSyB_4uvbCh9aPAl1-dOQ5klTEQ7FnvxZfjo';
-const poster_path_base = 'http://image.tmdb.org/t/p/w185/';
+const poster_path_base = 'https://image.tmdb.org/t/p/w185/';
 const max_cast_display = 5;
 const errorBox = $('.header').children('.error');
 
@@ -29,7 +29,7 @@ function dateConversion(dateJson) {
 //Accepts JSON related to a youtube video and displays it on the page.
 function displayYoutubeVideo(video) {
     $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
-    src="https://www.youtube.com/embed/${video.items[0].id.videoId}"
+    src="https://www.youtube.com/embed/${video.items[0].id.videoId}&origin=https://balzua.github.io/WhatToWatch/index.html"
     width="420" height="315" frameborder="0" allowFullScreen></iframe>`);
     $('.right').removeClass('hidden');
 }
