@@ -14,15 +14,23 @@
     text-align: left;
 }
 
-.results a, .results a:visited {
+a, a:visited {
     text-decoration: none;
     font-weight: bold;
     color: navy;
 }
 
-.results li:hover, .results a:hover, .results a:focus {
+.results li:hover, a:hover, a:focus {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.results-header {
+    font-family: 'Roboto', Sans-Serif;
+    font-size: 18px;
+    text-decoration: underline;
+    margin-top: 5px;
+    display: block;
 }
 
 .odd {
@@ -186,4 +194,8 @@ ul {
 .horror {
     background-color: #333399;
     color: white;
+}
+
+.footer img {
+    vertical-align: middle;
 }

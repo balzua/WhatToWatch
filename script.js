@@ -109,7 +109,7 @@ function makeActive(activeMovieID, activeMovieTitle) {
 
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
 function writeResults(resultJson) {
-    $('.results').html('<h2>Similar Titles</h2><ul></ul>');
+    $('.results').html('<span class="results-header">Similar Titles</span><ul></ul>');
     let results = resultJson.results;
     for (let i = 0; i < results.length; i++) {
         let listEntry = `<li data="${results[i].id}" ${i % 2 == 0 ? '' : 'class="odd"'}>`;
