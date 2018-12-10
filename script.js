@@ -78,7 +78,7 @@ function writeCastDetails(credits, alsoIn) {
     $('.main').append('<ul class="cast">')
     for (let i = 0; i < max_cast_display; i++) {
         const otherFilm = randomMovie(alsoIn[i].cast);
-        $('.main ul').append(`<li><a href="${cast[i].profile_path}">${cast[i].name}</a> as ${cast[i].character}<br>Also appeared in: ${otherFilm.title}</li>`);
+        $('.main ul').append(`<li><a href="${cast[i].profile_path}">${cast[i].name}</a> as ${cast[i].character}<br>Also appeared in: <a href="#" data="${otherFilm.id}">${otherFilm.title}</a></li>`);
     }
     $('.main').append('</ul>')
 }
@@ -177,6 +177,13 @@ function eventListener() {
     $('.results').on('click', 'li', function (event) {
         let activeMovieID = $(this).attr('data');
         let activeMovieTitle = $(this).children('a').text();
+        makeActive(activeMovieID, activeMovieTitle);
+    })
+
+    //Handles clicking on another movie in the "also appeared in" section for an actor
+    $('.main').on('click', 'li > a', function (event) {
+        let activeMovieID = $(this).attr('data');
+        let activeMovieTitle = $(this).text();
         makeActive(activeMovieID, activeMovieTitle);
     })
 }
