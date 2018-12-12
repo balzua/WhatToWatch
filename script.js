@@ -1,6 +1,5 @@
 const mdb_api_key = 'c3a54b08f36afeb83e13c3643c7c2acd';
 const yt_api_key = 'AIzaSyB_4uvbCh9aPAl1-dOQ5klTEQ7FnvxZfjo';
-const poster_path_base = 'https://image.tmdb.org/t/p/w185/';
 const max_cast_display = 5;
 
 //Accepts JSON related to a Youtube video and embeds it on the page.
@@ -79,7 +78,8 @@ function getMovieCredits(activeMovie) {
 //A function which adds the movie details to the main information area.
 function writeMovieDetails(details) {
     const releaseDate = dateConversion(details.release_date);
-    let content = `<img src="${poster_path_base + details.poster_path}" class="poster">`;
+    const posterPathBase = 'https://image.tmdb.org/t/p/w185/';
+    let content = `<img src="${posterPathBase + details.poster_path}" class="poster">`;
     content += '<div class="movie-content">';
     content += `<h2>${details.title}</h2>`;
     content += `<span class="release-date">${releaseDate}</span><br>`;
