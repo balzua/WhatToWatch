@@ -21,10 +21,13 @@
     }
 }
 
-.header, .main, .right, .footer {
+.header, .main, .right, .footer, .results {
     background-color: rgba(255, 255, 255, 0.95);
     margin: 5px;
     border: 1px solid black;
+}
+
+.header, .main, .right, .footer {
     padding: 20px;
 }
 

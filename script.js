@@ -26,8 +26,17 @@ function getYoutube(activeMovie) {
     const query = queryArray.join('&');
     const requestURL = baseURL + '?' + query;
     fetch(requestURL)
-        .then(response => response.json())
-        .then(responseJson => displayYoutubeVideo(responseJson));
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(response.statusText);
+    })
+    .then(responseJson => displayYoutubeVideo(responseJson))
+    .catch(err => {
+        $('.error').text(`An error occurred: ${err.message}`);
+        $('.error').removeClass('hidden');
+    });
 }
 
 //A function which adds the movie cast details to the main information area.
@@ -57,9 +66,18 @@ function getCastDetails(credits) {
             if (response.ok) {
                 return response.json();
             }
+            throw new Error(response.statusText);
         })
+        .catch(err => {
+            $('.error').text(`An error occurred: ${err.message}`);
+            $('.error').removeClass('hidden');
+        });
     }
-    Promise.all(castInfo).then(responseJson => writeCastDetails(credits, responseJson));
+    Promise.all(castInfo).then(responseJson => writeCastDetails(credits, responseJson))
+    .catch(err => {
+        $('.error').text(`An error occurred: ${err.message}`);
+        $('.error').removeClass('hidden');
+    });
 }
 
 //A function which returns responseJSON containing a given movie's cast/crew from The Movie Database.
@@ -71,8 +89,13 @@ function getMovieCredits(activeMovie) {
             if (response.ok) {
                 return response.json();
             }
+            throw new Error(response.statusText);
         })
-        .then(responseJson => getCastDetails(responseJson));
+        .then(responseJson => getCastDetails(responseJson))
+        .catch(err => {
+            $('.error').text(`An error occurred: ${err.message}`);
+            $('.error').removeClass('hidden');
+        });
 }
 
 //A function which adds the movie details to the main information area.
@@ -119,12 +142,17 @@ function getMovieDetails(activeMovie) {
     const baseURL = 'https://api.themoviedb.org/3/movie/'
     const requestURL = baseURL + activeMovie + '?' + 'api_key=' + mdb_api_key;
     fetch(requestURL)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-        })
-        .then(responseJson => writeMovieDetails(responseJson));
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error(response.statusText);
+    })
+    .then(responseJson => writeMovieDetails(responseJson))
+    .catch(err => {
+        $('.error').text(`An error occurred: ${err.message}`)
+        $('.error').removeClass('hidden');
+    });
 }
 
 //A function which adds the search results to the DOM when provided response JSON from The Movie Database.
@@ -167,16 +195,23 @@ function search(searchTerm) {
             if (response.ok) {
                 return response.json();
             }
+            throw new Error(response.statusText);
         })
-        .then(responseJson => writeSearchResults(responseJson));
+        .then(responseJson => writeSearchResults(responseJson))
+        .catch(err => {
+            $('.error').text(`An error occurred: ${err.message}`);
+            $('.error').removeClass('hidden');
+        });
 }
 
 function eventListener() {
     //Handles search submission
     $('#js-search').on('submit', function (event) {
         event.preventDefault();
+        //Clear error message
+        $('.error').text('');
         let query = $('#js-search-term').val();
-        let resultsList = search(query);
+        search(query);
     });
 
     //Handles clicking on a result for details
