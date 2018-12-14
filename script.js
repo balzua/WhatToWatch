@@ -46,7 +46,9 @@ function writeCastDetails(credits, alsoIn) {
     for (let i = 0; i < max_cast_display; i++) {
         //Fetch a random movie from each actor's filmography:
         const otherFilm = randomMovie(alsoIn[i].cast);
-        $('.main ul').append(`<li><a href="https://www.themoviedb.org/person/${cast[i].id}" target="_blank">${cast[i].name}</a> as ${cast[i].character}<br>Also appeared in: <a href="#" data="${otherFilm.id}">${otherFilm.title}</a></li>`);
+        $('.main ul').append(`<li>
+            <a href="https://www.themoviedb.org/person/${cast[i].id}" target="_blank">${cast[i].name}</a> as ${cast[i].character}
+            <br>Also appeared in: <a href="#" class="other-film" data="${otherFilm.id}">${otherFilm.title}</a></li>`);
     }
     $('.main').append('</ul>')
 }
@@ -223,7 +225,7 @@ function eventListener() {
     })
 
     //Handles clicking on another movie in the "also appeared in" section for an actor
-    $('.main').on('click', 'li > a', function (event) {
+    $('.main').on('click', '.other-film', function (event) {
         event.preventDefault();
         let activeMovieID = $(this).attr('data');
         let activeMovieTitle = $(this).text();
