@@ -211,7 +211,8 @@ function eventListener() {
     $('#js-search').on('submit', function (event) {
         event.preventDefault();
         //Clear error message
-        $('.error').text('');
+        errorBox.text('');
+        errorBox.addClass('hidden');
         let query = $('#js-search-term').val();
         search(query);
     });
@@ -219,6 +220,9 @@ function eventListener() {
     //Handles clicking on a result for details
     $('.results').on('click', 'li', function (event) {
         event.preventDefault();
+        //Clear error message
+        errorBox.text('');
+        errorBox.addClass('hidden');
         let activeMovieID = $(this).attr('data');
         let activeMovieTitle = $(this).children('a').text();
         makeActive(activeMovieID, activeMovieTitle);
@@ -227,6 +231,9 @@ function eventListener() {
     //Handles clicking on another movie in the "also appeared in" section for an actor
     $('.main').on('click', '.other-film', function (event) {
         event.preventDefault();
+        //Clear error message
+        errorBox.text('');
+        errorBox.addClass('hidden');
         let activeMovieID = $(this).attr('data');
         let activeMovieTitle = $(this).text();
         makeActive(activeMovieID, activeMovieTitle);
