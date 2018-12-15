@@ -207,6 +207,8 @@ function search(searchTerm) {
 }
 
 function eventListener() {
+    //Define a shortcut for the error container
+    const errorBox = $('.header').children('.error');
     //Handles search submission
     $('#js-search').on('submit', function (event) {
         event.preventDefault();
