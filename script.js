@@ -4,7 +4,7 @@ const max_cast_display = 5;
 
 //Accepts JSON related to a Youtube video and embeds it on the page.
 function displayYoutubeVideo(video) {
-    $('.right').html(`<iframe title="YouTube Video Player" class="youtube-player" type="text/html" 
+    $('.right').html(`<iframe title="YouTube Video Player" type="text/html" 
     src="https://www.youtube.com/embed/${video.items[0].id.videoId}"
     width="420" height="315" frameborder="0" allowFullScreen></iframe>`);
     $('.right').removeClass('hidden');
@@ -211,6 +211,7 @@ function eventListener() {
     const errorBox = $('.header').children('.error');
     //Handles search submission
     $('#js-search').on('submit', function (event) {
+        $('.welcome').addClass('hidden');
         event.preventDefault();
         //Clear error message
         errorBox.text('');

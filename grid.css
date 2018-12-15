@@ -2,6 +2,7 @@
     display: grid;
     grid-template-areas: 
     'header'
+    'welcome'
     'main'
     'right'
     'results'
@@ -15,6 +16,7 @@
     #container {
         grid-template-areas: 
         'header header header'
+        'welcome welcome welcome'
         'results main main'
         'results right right'
         'footer footer footer';
@@ -37,6 +39,10 @@
 
 .header {
     grid-area: header;
+}
+
+.welcome {
+    grid-area: welcome;
 }
 
 .results {

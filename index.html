@@ -16,12 +16,15 @@
             <header class="header" role="search">
                 <h1>What Else Is On?</h1>
                 <form id="js-search">
-                    <input type="text" placeholder="Enter a movie title" id="js-search-term" class="search-field">
+                    <input type="text" placeholder="Search for movies to see more information..." id="js-search-term" class="search-field">
                     <input type="submit" id="js-submit" text="Search" class="search-button">
                 </form>
                 <div class="error hidden" aria-live="polite"></div>
             </header>
             <section class="results hidden" role="navigation" aria-live="polite"></section>
+            <section class="welcome" role="region" aria-live="polite">
+                <iframe width="560" height="315" class="youtube-player" src="https://www.youtube.com/embed/xBasQG_6p40?controls=0&amp;start=23&mute=1&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </section>
             <section class="main hidden" role="main" aria-live="polite"></section>
             <section class="right hidden" role="region" aria-live="polite"></section>
             <footer class="footer" role="contentinfo">
